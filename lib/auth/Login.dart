@@ -57,7 +57,8 @@ class _LoginState extends State<Login> {
                         },*/
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical: 15),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 8),
                       ),
                     ),
                   ),
@@ -87,7 +88,8 @@ class _LoginState extends State<Login> {
               /*validator: (value) =>
                   value!.isEmpty ? 'Password cannot be empty' : null,*/
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 15),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 8),
                 hintText: "Enter password",
                 hintStyle: TextStyle(fontSize: 14),
                 border: InputBorder.none,
@@ -125,10 +127,11 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Color(hexColor("#004EA0"))),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.push(
+                      goToSecondScreen();
+                      /*Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CreateAccount()));
+                              builder: (context) => CreateAccount()));*/
                     }),
             ])),
           ),
@@ -143,7 +146,25 @@ class _LoginState extends State<Login> {
         passwordController.text.isNotEmpty) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     } else {
-      debugPrint('form is invalid');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Please enter valid email"),
+          duration: Duration(seconds: 2)));
+    }
+  }
+
+  void goToSecondScreen() async {
+    var result = await Navigator.push(
+        context,
+        new MaterialPageRoute(
+          builder: (BuildContext context) => new CreateAccount(),
+          fullscreenDialog: true,
+        ));
+
+    if (result != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("$result"),
+        duration: Duration(seconds: 2),
+      ));
     }
   }
 }

@@ -20,7 +20,13 @@ class _CreateAccountState extends State<CreateAccount> {
         child: Container(
           margin: EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
           child: Column(
-            children: [title(), fullName(), yearLevel(), gender()],
+            children: [
+              title(),
+              fullName(),
+              yearLevel(),
+              gender(),
+              createAccountButton()
+            ],
           ),
         ),
       ),
@@ -181,5 +187,23 @@ class _CreateAccountState extends State<CreateAccount> {
 
     // Detect when it closes
 // Do something here
+  }
+
+  createAccountButton() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 70, 0, 10),
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: 55,
+      child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: Color(hexColor("#004EA0")),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16))),
+          onPressed: () => {Navigator.pop(context, "Hello World")},
+          child: Text(
+            "Create Account",
+            style: TextStyle(fontSize: 17, color: Colors.white),
+          )),
+    );
   }
 }
